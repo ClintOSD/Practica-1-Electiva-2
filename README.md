@@ -1,2 +1,2 @@
-# Practica-1-Electiva-2
+# Practica-1-E2
 Primera practica de electiva 2
