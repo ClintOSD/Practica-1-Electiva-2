@@ -1,0 +1,24 @@
+# .github/workflows/alerta.yml
+
+name: Notificación de estado del Workflow
+
+on:
+  workflow_run:
+    workflows: ["workflows"]
+    types:
+      - completed
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar notificación a Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_CHANNEL: '#canal-de-notificaciones'
+          SLACK_MESSAGE: |
+            Workflow **${{ github.event.workflow_run.name }}** ha ${{ github.event.workflow_run.conclusion == 'success' && 'completado exitosamente' || 'fallado' }}.
+            <${{ github.event.workflow_run.html_url }}|Ver Detalles>
+          SLACK_TITLE: Notificación de GitHub Actions
+          SLACK_COLOR: ${{ github.event.workflow_run.conclusion == 'success' && 'good' || 'danger' }}
