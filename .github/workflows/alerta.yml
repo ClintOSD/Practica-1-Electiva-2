@@ -4,7 +4,7 @@ name: Notificación de Push a ntfy.sh
 on:
   push:-
     branches:
-      - main
+     -main
 
 jobs:
   notificar:
