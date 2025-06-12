@@ -2,9 +2,9 @@
 name: Notificación de Push a ntfy.sh
 
 on:
-  push:-
+  push:
     branches:
-     -main
+      - main
 
 jobs:
   notificar:
@@ -12,4 +12,7 @@ jobs:
     steps:
     - name: Enviar notificación a ntfy.sh
       run: |
-        curl -d "Nuevo código subido al repositorio ${{ github.repository }} en la rama main por ${{ github.actor }}. Commit: ${{ github.sha }} - ${{ github.event.head_commit.message }}" ntfy.sh/devops-itla
+        COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+        curl -d "Nuevo código subido al repositorio ${{ github.repository }} en la rama main por ${{ github.actor }}.
+        Commit SHA: ${{ github.sha }}
+        Mensaje: $COMMIT_MESSAGE" ntfy.sh/devops-itla
