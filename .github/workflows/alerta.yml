@@ -3,11 +3,9 @@
 name: Notificación de estado del Workflow
 
 on:
-  workflow_run:
-    workflows: ["workflows"]
-    types:
-      - completed
-
+  push:
+    branches:
+      - main
 jobs:
   notify:
     runs-on: ubuntu-latest
